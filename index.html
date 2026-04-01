@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Letter from Emily</title>
+  <style>
+
+    body {
+      background: #e8e4da;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    /* Prevents horizontal scroll when elements go out of bounds */
+    .chapter-12 {
+      overflow: hidden;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Main container — expands on hover to reveal all three letter segments */
+    .trifold_letter {
+      position: relative;
+      margin: 0 auto;
+      font-size: 0;
+      font-family: 'Times New Roman', Times, serif;
+      width: 600px;
+      height: 240px;
+      max-width: 80%;
+      min-width: 50%;
+      transition: height 2s;
+      transition-delay: 2s;
+    }
+
+    .trifold_letter:hover {
+      height: 600px;
+      transition: height 2s;
+      transition-delay: 0s;
+    }
+
+    /* ── COVER / ENVELOPE — white ── */
+    .letter_cover {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      color: #383C45;
+      background: #ffffff;
+      box-shadow: -2px 1px 5px 1px #00000010, 1px -2px 5px 1px #00000010;
+      border: solid #383C4550 1px;
+      width: 110%;
+      min-height: 240px;
+      max-height: 240px;
+      transition: top 2s, left 2s, transform 2s, z-index 2s;
+      transition-delay: 2s;
+      z-index: 8;
+    }
+
+    .letter_cover:hover {
+      cursor: wait;
+    }
+
+    .trifold_letter:hover .letter_cover {
+      top: -100px;
+      left: 0px;
+      background: #ffffff;
+      transform: rotate(15deg);
+      transition: top 2s, left 2s, transform 2s;
+      transition-delay: 0s;
+      z-index: 0;
+    }
+
+    /* Cover text elements */
+    .letter_cover_text {
+      position: relative;
+      margin: 0 auto;
+      top: 50px;
+      max-width: 33%;
+      min-width: 30%;
+      font-size: 20px;
+      overflow: visible;
+    }
+
+    .letter_cover_text_top {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      max-width: 33%;
+      min-width: 30%;
+      font-size: 15px;
+      overflow: visible;
+    }
+
+
+    .letter_cover_stamp {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      height: 75px;
+      width: 80px;
+      min-width: 10%;
+      max-width: 30%;
+      background-color: #f5f5f5;
+      background-image: url(Screenshot 2026-04-01 at 2.52.17 PM);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      border-radius: 3px;
+      box-shadow: 1px .5px 0px 0px #00000020, 1px .5px 0px 0px white inset;
+    }
+
+    /* ── TOP SEGMENT — original parchment ── z-index 7 */
+    .letter_top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #383C45;
+      background: linear-gradient(176deg,
+        rgba(255,251,240,1) 0%,
+        rgba(245,235,207,1) 81%,
+        rgba(255,248,228,1) 100%);
+      height: 200px;
+      width: 100%;
+      border-left: solid #383C4550 1px;
+      border-right: solid #383C4550 1px;
+      border-top: solid #383C4550 1px;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      box-shadow: -5px -3px 10px 1px #00000010;
+      transition: left 2s, transform 2s;
+      transition-delay: 2s;
+      z-index: 7;
+      box-sizing: border-box;
+    }
+
+    .letter_top_text {
+      position: relative;
+      margin: 0 auto;
+      top: 20px;
+      height: 170px;
+      max-width: 90%;
+      font-size: 18px;
+      overflow: hidden;
+    }
+
+    .trifold_letter:hover .letter_top {
+      left: -20px;
+      transform: skew(5deg);
+      transition: left 2s, transform 2s;
+      transition-delay: 0s;
+    }
+
+    /* ── MID SEGMENT — original parchment ── z-index 6 */
+    .letter_mid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #383C45;
+      background: linear-gradient(169deg,
+        rgba(214,205,179,1) 0%,
+        rgba(233,224,197,1) 52%,
+        rgba(255,248,229,1) 100%);
+      height: 200px;
+      width: 100%;
+      box-shadow: -5px -3px 10px 1px #00000010;
+      border-left: solid #383C4550 1px;
+      border-right: solid #383C4550 1px;
+      transition: top 2s, left 2s, transform 2s;
+      transition-delay: 2s;
+      z-index: 6;
+      box-sizing: border-box;
+    }
+
+    .letter_mid_text {
+      position: relative;
+      margin: 0 auto;
+      top: -20px;
+      max-width: 90%;
+      height: 210px;
+      font-size: 18px;
+      overflow: hidden;
+    }
+
+    .trifold_letter:hover .letter_mid {
+      top: 200px;
+      left: -20px;
+      transform: skew(-5deg);
+      transition: top 2s, left 2s, transform 2s;
+      transition-delay: 0s;
+    }
+
+    /* ── BOT SEGMENT — original parchment ── z-index 5 */
+    .letter_bot {
+      position: absolute;
+      top: 0px;
+      left: .1px;
+      color: #383C45;
+      background: linear-gradient(353deg,
+        rgba(255,251,240,1) 0%,
+        rgba(242,231,201,1) 79%,
+        rgba(255,248,228,1) 100%);
+      height: 200px;
+      width: 100%;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border-left: solid #383C4550 1px;
+      border-right: solid #383C4550 1px;
+      border-bottom: solid #383C4550 1px;
+      box-shadow: -5px -3px 10px 1px #00000010;
+      transition: top 2s, left 2s, transform 2s;
+      transition-delay: 2s;
+      z-index: 5;
+      box-sizing: border-box;
+    }
+
+    .letter_bot_text {
+      position: relative;
+      top: -20px;
+      margin: 0 auto;
+      max-width: 90%;
+      height: 160px;
+      font-size: 18px;
+      overflow: hidden;
+    }
+
+    .trifold_letter:hover .letter_bot {
+      top: 400px;
+      left: -20px;
+      transition: top 2s, left 2s, transform 2s;
+      transition-delay: 0s;
+      transform: skew(5deg);
+    }
+
+    /* Small hint text */
+    .hint {
+      text-align: center;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13px;
+      color: #888;
+      margin-top: 12px;
+      letter-spacing: 0.04em;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div>
+    <div class="chapter-12">
+      <div class="trifold_letter">
+
+        <!-- COVER / ENVELOPE -->
+        <div class="letter_cover">
+          <p class="letter_cover_stamp"></p>
+          <div class="letter_cover_text_top">
+            <p><b>Emily</b><br />238 Stockholm St<br />Brooklyn</p>
+          </div>
+          <div class="letter_cover_text">
+            <p align="center"><b>Liz</b><br />Bay Area<br />California</p>
+          </div>
+        </div>
+
+        <!-- TOP SEGMENT -->
+        <div class="letter_top">
+          <div class="letter_top_text">
+            <p><br />Dear Liz,</p>
+            <p>Thank you for your postcard, it warmed my heart to hear from you! I was unable to find my stamps or any envelopes, so you get a visual letter instead (post offices here are a nightmare). I am happy to hear about your new job! What is it? I hope it offers you more comfort than your previous one.</p>
+          </div>
+        </div>
+
+        <!-- MID SEGMENT -->
+        <div class="letter_mid">
+          <div class="letter_mid_text">
+            <p>It has finally become spring here. It was pretty chilly (20-30s) and randomly became 75 degree days. I think I like winter here more than I had previously assumed. Something about walking around in the snow, all bundled up, and barely any people outside. A special type of magic. My mom told me its been hot in the bay, I hope its been treating you well.</p>
+          </div>
+        </div>
+
+        <!-- BOT SEGMENT -->
+        <div class="letter_bot">
+          <div class="letter_bot_text">
+            <p>How are you and your partner? How has this new job been treating you? What books have you been reading recently? I reread Sarahland this week, and I think you would enjoy it. I hope to hear from you soon and I will be buying stamps in the next month.... at some point...</p>
+            <p align="right">With love,</p>
+            <p align="right">Emily</p>
+          </div>
+        </div>
+
+      </div><!-- end trifold_letter -->
+    </div><!-- end chapter-12 -->
+
+    <p class="hint">hover over the letter to open it</p>
+  </div>
+
+</body>
+</html>
