@@ -301,5 +301,23 @@
     <p class="hint">hover over the letter to open it</p>
   </div>
 
+<script>
+    const CORRECT_PASSWORD = "sunflower";
+ 
+    function checkPassword() {
+      const input = document.getElementById("password-input").value;
+      const error = document.getElementById("password-error");
+ 
+      if (input === CORRECT_PASSWORD) {
+        document.getElementById("password-screen").style.display = "none";
+        document.getElementById("letter-content").style.display = "block";
+      } else {
+        error.textContent = "That's not quite right — try again.";
+        document.getElementById("password-input").value = "";
+        document.getElementById("password-input").focus();
+      }
+    }
+  </script>
+
 </body>
 </html>
