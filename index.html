@@ -18,6 +18,83 @@
       font-family: 'Times New Roman', Times, serif;
     }
 
+    /* ── PASSWORD SCREEN ── */
+    #password-screen {
+      position: fixed;
+      inset: 0;
+      background: #e8e4da;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #password-screen h2 {
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: normal;
+      font-size: 22px;
+      color: #383C45;
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    #password-screen p {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    #password-screen input {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 16px;
+      padding: 10px 16px;
+      border: 1px solid #383C4550;
+      border-radius: 4px;
+      background: #fff;
+      color: #383C45;
+      outline: none;
+      width: 220px;
+      text-align: center;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    #password-screen input:focus {
+      border-color: #383C4590;
+    }
+
+    #password-screen button {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 15px;
+      padding: 9px 28px;
+      background: #383C45;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+    }
+
+    #password-screen button:hover {
+      background: #4a5060;
+    }
+
+    #password-error {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13px;
+      color: #a33;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+    /* Letter hidden until correct password */
+    #letter-content {
+      display: none;
+      width: 100%;
+    }
+
     /* Prevents horizontal scroll when elements go out of bounds */
     .chapter-12 {
       overflow: hidden;
@@ -77,7 +154,6 @@
       z-index: 0;
     }
 
-    /* Cover text elements */
     .letter_cover_text {
       position: relative;
       margin: 0 auto;
@@ -99,9 +175,8 @@
     }
 
     /*
-      STAMP — to use your own photo:
-      1. Save your image in the same folder as index.html
-      2. Change url(stamp.jpg) below to match your filename, e.g. url(mycat.png)
+      STAMP — save your image in the same folder as index.html
+      then change url(stamp.jpg) to match your filename
     */
     .letter_cover_stamp {
       position: absolute;
@@ -120,7 +195,7 @@
       box-shadow: 1px .5px 0px 0px #00000020, 1px .5px 0px 0px white inset;
     }
 
-    /* ── TOP SEGMENT — original parchment ── z-index 7 */
+    /* ── TOP SEGMENT ── */
     .letter_top {
       position: absolute;
       top: 0;
@@ -161,7 +236,7 @@
       transition-delay: 0s;
     }
 
-    /* ── MID SEGMENT — original parchment ── z-index 6 */
+    /* ── MID SEGMENT ── */
     .letter_mid {
       position: absolute;
       top: 0;
@@ -200,7 +275,7 @@
       transition-delay: 0s;
     }
 
-    /* ── BOT SEGMENT — original parchment ── z-index 5 */
+    /* ── BOT SEGMENT ── */
     .letter_bot {
       position: absolute;
       top: 0px;
@@ -242,7 +317,6 @@
       transform: skew(5deg);
     }
 
-    /* Small hint text */
     .hint {
       text-align: center;
       font-family: 'Times New Roman', Times, serif;
@@ -256,7 +330,17 @@
 </head>
 <body>
 
-  <div>
+  <!-- PASSWORD SCREEN — shown first -->
+  <div id="password-screen">
+    <h2>A letter for you</h2>
+    <p>Enter your password to open it</p>
+    <input type="password" id="password-input" placeholder="password" onkeydown="if(event.key==='Enter') checkPassword()" />
+    <button onclick="checkPassword()">Open</button>
+    <div id="password-error"></div>
+  </div>
+
+  <!-- LETTER — hidden until correct password -->
+  <div id="letter-content">
     <div class="chapter-12">
       <div class="trifold_letter">
 
@@ -289,7 +373,7 @@
         <!-- BOT SEGMENT -->
         <div class="letter_bot">
           <div class="letter_bot_text">
-            <p>How are you and your partner? How has this new job been treating you? What books have you been reading recently? I reread Sarahland this week, and I think you would enjoy it. I hope to hear from you soon and I will be buying stamps in the next month.... at some point...I also did not get your forwarding address, so please send that over whenever.</p>
+            <p>How are you and your partner? How has this new job been treating you? What books have you been reading recently? I reread Sarahland this week, and I think you would enjoy it. I hope to hear from you soon and I will be buying stamps in the next month.... at some point...</p>
             <p align="right">With love,</p>
             <p align="right">Emily</p>
           </div>
@@ -297,17 +381,17 @@
 
       </div><!-- end trifold_letter -->
     </div><!-- end chapter-12 -->
-
     <p class="hint">hover over the letter to open it</p>
   </div>
 
-<script>
+  <script>
+    // ── CHANGE "sunflower" TO WHATEVER PASSWORD YOU WANT ──
     const CORRECT_PASSWORD = "sunflower";
- 
+
     function checkPassword() {
       const input = document.getElementById("password-input").value;
       const error = document.getElementById("password-error");
- 
+
       if (input === CORRECT_PASSWORD) {
         document.getElementById("password-screen").style.display = "none";
         document.getElementById("letter-content").style.display = "block";
