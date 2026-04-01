@@ -10,10 +10,10 @@
       background: #e8e4da;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
       margin: 0;
-      padding: 40px 20px;
+      padding: 80px 20px 60px;
       box-sizing: border-box;
       font-family: 'Times New Roman', Times, serif;
     }
@@ -89,89 +89,74 @@
       min-height: 18px;
     }
 
-    /* Letter hidden until correct password */
     #letter-content {
       display: none;
       width: 100%;
     }
 
-    /* Prevents horizontal scroll when elements go out of bounds */
     .chapter-12 {
-      overflow: hidden;
+      overflow: visible;
       width: 100%;
       display: flex;
       justify-content: center;
     }
 
-    /* Main container — expands on hover to reveal all three letter segments */
+    /* ── MAIN CONTAINER ── */
     .trifold_letter {
       position: relative;
       margin: 0 auto;
       font-size: 0;
       font-family: 'Times New Roman', Times, serif;
       width: 420px;
-      height: 240px;
-      max-width: 60%;
-      min-width: 320px;
+      max-width: 90%;
+      min-width: 280px;
+      /* tall enough to show envelope + collapsed letter */
+      height: 340px;
       transition: height 2s;
       transition-delay: 2s;
     }
 
     .trifold_letter:hover {
-      height: 720px;
+      /* envelope (160px visible) + three segments (260px each) */
+      height: 960px;
       transition: height 2s;
       transition-delay: 0s;
     }
 
-    /* ── COVER / ENVELOPE — white ── */
+    /* ── ENVELOPE — sits at top, stays still ── */
     .letter_cover {
       position: absolute;
-      top: -20px;
-      left: -20px;
+      top: 0;
+      left: -15px;
+      right: -15px;
+      width: calc(100% + 30px);
+      height: 200px;
       color: #383C45;
       background: #ffffff;
-      box-shadow: -2px 1px 5px 1px #00000010, 1px -2px 5px 1px #00000010;
-      border: solid #383C4550 1px;
-      width: 110%;
-      min-height: 240px;
-      max-height: 240px;
-      transition: top 2s, left 2s, transform 2s, z-index 2s;
-      transition-delay: 2s;
-      z-index: 8;
-    }
-
-    .letter_cover:hover {
-      cursor: wait;
-    }
-
-    .trifold_letter:hover .letter_cover {
-      top: -100px;
-      left: 0px;
-      background: #ffffff;
-      transform: rotate(15deg);
-      transition: top 2s, left 2s, transform 2s;
-      transition-delay: 0s;
-      z-index: 0;
-    }
-
-    .letter_cover_text {
-      position: relative;
-      margin: 0 auto;
-      top: 50px;
-      max-width: 33%;
-      min-width: 30%;
-      font-size: 20px;
-      overflow: visible;
+      box-shadow: -2px 2px 8px 1px #00000018, 2px -2px 8px 1px #00000010;
+      border: solid #383C4540 1px;
+      border-radius: 4px;
+      z-index: 2;
+      box-sizing: border-box;
     }
 
     .letter_cover_text_top {
       position: absolute;
-      top: 10px;
+      top: 14px;
       left: 20px;
-      max-width: 33%;
-      min-width: 30%;
-      font-size: 15px;
-      overflow: visible;
+      font-size: 14px;
+      color: #383C45;
+      line-height: 1.5;
+    }
+
+    .letter_cover_text {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 18px;
+      color: #383C45;
     }
 
     /*
@@ -180,42 +165,42 @@
     */
     .letter_cover_stamp {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      height: 75px;
-      width: 80px;
-      min-width: 10%;
-      max-width: 30%;
+      top: 16px;
+      right: 16px;
+      height: 70px;
+      width: 75px;
       background-color: #f5f5f5;
       background-image: url(stamp.jpg);
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
       border-radius: 3px;
-      box-shadow: 1px .5px 0px 0px #00000020, 1px .5px 0px 0px white inset;
+      box-shadow: 1px 1px 0px 0px #00000025, 1px 1px 0px 0px white inset;
     }
 
-    /* ── TOP SEGMENT ── */
+    /* ── LETTER SEGMENTS — start tucked behind envelope, slide down on hover ── */
+
+    /* TOP SEGMENT — starts at y=160 (peeking just below envelope bottom) */
     .letter_top {
       position: absolute;
-      top: 0;
+      top: 160px;
       left: 0;
+      width: 100%;
+      height: 260px;
       color: #383C45;
       background: linear-gradient(176deg,
         rgba(255,251,240,1) 0%,
         rgba(245,235,207,1) 81%,
         rgba(255,248,228,1) 100%);
-      height: 260px;
-      width: 100%;
       border-left: solid #383C4550 1px;
       border-right: solid #383C4550 1px;
       border-top: solid #383C4550 1px;
-      border-top-right-radius: 4px;
-      border-top-left-radius: 4px;
-      box-shadow: -5px -3px 10px 1px #00000010;
-      transition: left 2s, transform 2s;
+      border-top-right-radius: 2px;
+      border-top-left-radius: 2px;
+      box-shadow: -3px 3px 8px 1px #00000012;
+      transition: top 2s, transform 2s;
       transition-delay: 2s;
-      z-index: 7;
+      z-index: 3;
       box-sizing: border-box;
     }
 
@@ -223,98 +208,97 @@
       position: relative;
       margin: 0 auto;
       top: 20px;
-      height: 230px;
+      height: 225px;
       max-width: 90%;
-      font-size: 18px;
+      font-size: 17px;
       overflow: hidden;
     }
 
+    /* on hover: slide down so full top segment is below envelope */
     .trifold_letter:hover .letter_top {
-      left: -20px;
-      transform: skew(5deg);
-      transition: left 2s, transform 2s;
+      top: 200px;
+      transform: skew(-1deg);
+      transition: top 2s, transform 2s;
       transition-delay: 0s;
     }
 
-    /* ── MID SEGMENT ── */
+    /* MID SEGMENT */
     .letter_mid {
       position: absolute;
-      top: 0;
+      top: 160px;
       left: 0;
+      width: 100%;
+      height: 260px;
       color: #383C45;
       background: linear-gradient(169deg,
         rgba(214,205,179,1) 0%,
         rgba(233,224,197,1) 52%,
         rgba(255,248,229,1) 100%);
-      height: 260px;
-      width: 100%;
-      box-shadow: -5px -3px 10px 1px #00000010;
+      box-shadow: -3px 3px 8px 1px #00000012;
       border-left: solid #383C4550 1px;
       border-right: solid #383C4550 1px;
-      transition: top 2s, left 2s, transform 2s;
+      transition: top 2s, transform 2s;
       transition-delay: 2s;
-      z-index: 6;
+      z-index: 2;
       box-sizing: border-box;
     }
 
     .letter_mid_text {
       position: relative;
       margin: 0 auto;
-      top: -20px;
+      top: 10px;
       max-width: 90%;
-      height: 210px;
-      font-size: 18px;
+      height: 240px;
+      font-size: 17px;
       overflow: hidden;
     }
 
     .trifold_letter:hover .letter_mid {
-      top: 260px;
-      left: -20px;
-      transform: skew(-5deg);
-      transition: top 2s, left 2s, transform 2s;
+      top: 460px;
+      transform: skew(1deg);
+      transition: top 2s, transform 2s;
       transition-delay: 0s;
     }
 
-    /* ── BOT SEGMENT ── */
+    /* BOT SEGMENT */
     .letter_bot {
       position: absolute;
-      top: 0px;
-      left: .1px;
+      top: 160px;
+      left: 0;
+      width: 100%;
+      height: 260px;
       color: #383C45;
       background: linear-gradient(353deg,
         rgba(255,251,240,1) 0%,
         rgba(242,231,201,1) 79%,
         rgba(255,248,228,1) 100%);
-      height: 260px;
-      width: 100%;
       border-bottom-right-radius: 4px;
       border-bottom-left-radius: 4px;
       border-left: solid #383C4550 1px;
       border-right: solid #383C4550 1px;
       border-bottom: solid #383C4550 1px;
-      box-shadow: -5px -3px 10px 1px #00000010;
-      transition: top 2s, left 2s, transform 2s;
+      box-shadow: -3px 3px 8px 1px #00000012;
+      transition: top 2s, transform 2s;
       transition-delay: 2s;
-      z-index: 5;
+      z-index: 1;
       box-sizing: border-box;
     }
 
     .letter_bot_text {
       position: relative;
-      top: -20px;
+      top: 10px;
       margin: 0 auto;
       max-width: 90%;
-      height: 160px;
-      font-size: 18px;
+      height: 240px;
+      font-size: 17px;
       overflow: hidden;
     }
 
     .trifold_letter:hover .letter_bot {
-      top: 520px;
-      left: -20px;
-      transition: top 2s, left 2s, transform 2s;
+      top: 720px;
+      transform: skew(-1deg);
+      transition: top 2s, transform 2s;
       transition-delay: 0s;
-      transform: skew(5deg);
     }
 
     .hint {
@@ -322,7 +306,7 @@
       font-family: 'Times New Roman', Times, serif;
       font-size: 13px;
       color: #888;
-      margin-top: 12px;
+      margin-top: 16px;
       letter-spacing: 0.04em;
     }
 
@@ -330,7 +314,7 @@
 </head>
 <body>
 
-  <!-- PASSWORD SCREEN — shown first -->
+  <!-- PASSWORD SCREEN -->
   <div id="password-screen">
     <h2>A letter for you</h2>
     <p>Enter your password to open it</p>
@@ -339,26 +323,26 @@
     <div id="password-error"></div>
   </div>
 
-  <!-- LETTER — hidden until correct password -->
+  <!-- LETTER -->
   <div id="letter-content">
     <div class="chapter-12">
       <div class="trifold_letter">
 
-        <!-- COVER / ENVELOPE -->
+        <!-- ENVELOPE — stays at top -->
         <div class="letter_cover">
-          <p class="letter_cover_stamp"></p>
+          <div class="letter_cover_stamp"></div>
           <div class="letter_cover_text_top">
             <p><b>Emily</b><br />238 Stockholm St<br />Brooklyn</p>
           </div>
           <div class="letter_cover_text">
-            <p align="center"><b>Liz</b><br />Bay Area<br />California</p>
+            <p><b>Liz</b><br />Bay Area, California</p>
           </div>
         </div>
 
         <!-- TOP SEGMENT -->
         <div class="letter_top">
           <div class="letter_top_text">
-            <p><br />Dear Liz,</p>
+            <p>Dear Liz,</p>
             <p>Thank you for your postcard, it warmed my heart to hear from you! I was unable to find my stamps or any envelopes, so you get a visual letter instead (post offices here are a nightmare). I am happy to hear about your new job! What is it? I hope it offers you more comfort than your previous one.</p>
           </div>
         </div>
@@ -379,8 +363,8 @@
           </div>
         </div>
 
-      </div><!-- end trifold_letter -->
-    </div><!-- end chapter-12 -->
+      </div>
+    </div>
     <p class="hint">hover over the letter to open it</p>
   </div>
 
